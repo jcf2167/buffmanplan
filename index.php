@@ -2,7 +2,7 @@
 <html>
 <?php include "header.php" ?>
 
-<body background="background.png">
+<body background="img/background.png">
 
 
     <div class="site-wrapper">
