@@ -1,12 +1,9 @@
 <?php
 	ini_set('display_errors', 'On');
 
-	// Create connection 
-	$dburl = "cs4111.c1xwtu16srrr.us-east-1.rds.amazonaws.com";
-	$dbuser = "jcf2167";
-	$dbpassword = "mycatisdead";
-	$dbname = "cs4111";
 
+	//create connection
+	
 	$dburl = "cs4111temp.c1xwtu16srrr.us-east-1.rds.amazonaws.com";
 	$dbuser = "jcf2167";
 	$dbpassword = "mycatisdead";
