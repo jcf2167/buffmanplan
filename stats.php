@@ -1,9 +1,6 @@
 <?php
 session_start();
-echo "++++";
-echo $_SESSION['email'];
 ?>
-
 
 <html>
 <?php include "header.php" ?>
@@ -19,16 +16,39 @@ echo $_SESSION['email'];
                 <?php include "navbar.php" ?>
 
                 <!--////////BODY////////-->
-                <div class="inner cover">
+                <div class="inner cover" style="background-color:rgba(67, 66, 66, .6)">
+
                     <h1 class="cover-heading">Welcome 
                     <?php
 					echo $_SESSION['email'];
 					?>!</h1>
-                    <p class="lead">Get mad buff for no reason!</p>
-                    <p class="lead">
-                        <a href="login.php" class="btn btn-lg btn-default">Login</a>
-                        <a href="signup.php" class="btn btn-lg btn-default">Sign Up</a>
-                    </p>
+
+                    <table class="table table-hover">
+				    <thead>
+				      <tr>
+				        <th>Firstname</th>
+				        <th>Lastname</th>
+				        <th>Email</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				        <td>John</td>
+				        <td>Doe</td>
+				        <td>john@example.com</td>
+				      </tr>
+				      <tr>
+				        <td>Mary</td>
+				        <td>Moe</td>
+				        <td>mary@example.com</td>
+				      </tr>
+				      <tr>
+				        <td>July</td>
+				        <td>Dooley</td>
+				        <td>july@example.com</td>
+				      </tr>
+				    </tbody>
+				  </table>
                 </div>
             </div>
         </div>
