@@ -15,14 +15,15 @@
 
 
                 <!--////////BODY////////-->
-               <form class="form-signin" action="login-form.php" method="post">
+               <form class="login-form" action="login-form.php" method="post">
             
             <label for="inputEmail" class="sr-only">Email address</label>
             <input type="text" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
             <label name="password" for="inputPassword" class="sr-only">Password</label>
             <input type="text" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        
         </br>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Login!</button>
         </form>
 
             </div>

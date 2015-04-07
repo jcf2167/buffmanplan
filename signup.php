@@ -1,8 +1,9 @@
 
 <html>
 <?php include "header.php" ?>
-
-<body background="background.png">
+<!-- Custom styles for this template -->
+    <link href="static/signin.css" rel="stylesheet">
+<body background="img/background.png">
 
 
     <div class="site-wrapper">
@@ -14,20 +15,47 @@
 
 
                 <!--////////BODY////////-->
-               <form class="form-signin" action="login-form.php" method="post">
-			
-			<label for="inputEmail" class="sr-only">Email address</label>
-			<input type="text" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-			<label name="password" for="inputPassword" class="sr-only">Password</label>
-			<input type="text" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-			<div class="checkbox">
-				<label>
-					<input type="checkbox" value="remember-me"> Remember me
-				</label>
-			</div>
-		</br>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-		</form>
+               <form class="signup-form" action="signup-form.php" method="post">
+					</br></br></br></br>
+					<label for="inputEmail" >Email address</label>
+					<input type="text" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+					
+					<label  for="inputPassword">Password</label>
+					<input type="text" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+					
+					<div float="left"> 
+		                    	<label for="gender">Gender</label>
+		                    	<select class="form-control">
+		                    		<option value="f">F</option>
+		                    		<option value-"m">M</option>
+		                    	</select>
+		            </div>
+
+		            <label for="height" >Height (cm)</label>
+					<input type="text" name="height"class="form-control" placeholder="Height" required autofocus>
+
+		            <label for="weight" >Weight (lb)</label>
+					<input type="text" name="weight"class="form-control" placeholder="Weight" required autofocus>
+
+					<label for="activitylevel">Activity Level (1-10)</label>
+			        <?php
+					echo "<select class='form-control'>";
+					for ($h = 1; $h <= 10; $h++) echo "<option value='$h'>$h</option>";
+					echo "</select>";
+					?>
+
+					<label for="bodyfat	"> Body Fat (%)</label>
+					<input type="text" name="weight"class="form-control" placeholder="Body Fat" required autofocus>
+
+					<label for="exercisefreq" >Exercise Frequency (1-10)</label>
+					<?php
+					echo "<select class='form-control'>";
+					for ($h = 1; $h <= 10; $h++) echo "<option value='$h'>$h</option>";
+					echo "</select>";
+					?>
+					</br>
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			</form>
 
             </div>
         </div>
