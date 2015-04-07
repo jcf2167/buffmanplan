@@ -18,19 +18,33 @@
 		$email=$_POST["email"];
 		$password=$_POST["password"];
 
-		$sql="select * from user where user.password='".$password."' and user.email='aaa".$email."'";
+		$sql="select * from user where user.password='".$password."' and user.email='".$email."'";
 
 		$result = mysqli_query($conn,$sql);
 		if(mysqli_num_rows($result) > 0)
 		{ 
-	
-			$row=mysqli_fetch_array($result);
-			$user=$row[0];
 
-			echo $user;
+			
+			$row=mysqli_fetch_array($result);
+			session_start();
+			$_SESSION['email']=$email;
+			$_SESSION['password']=$password;
+
+			$_SESSION['activity_level']=$row['activity_level'];
+		
+			$_SESSION['height']=$row['height'];
+			$_SESSION['gender']=$row['gender'];
+			$_SESSION['weight']=$row['weight'];
+			$_SESSION['exercise_frequency']=$row['exercise_frequency'];
+			$_SESSION['body_fat']=$row['body_fat'];
+
+			header("Location:stats.php");
+
+
+	
 		}
 		else{
-			echo "dead ";
+			 include "bad-login.php";
 		}
 		
 	}
