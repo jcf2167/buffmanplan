@@ -29,9 +29,7 @@
 			session_start();
 			$_SESSION['email']=$email;
 			$_SESSION['password']=$password;
-
-			$_SESSION['activity_level']=$row['activity_level'];
-		
+			$_SESSION['activity_level']=$row['activity_level'];	
 			$_SESSION['height']=$row['height'];
 			$_SESSION['gender']=$row['gender'];
 			$_SESSION['weight']=$row['weight'];
