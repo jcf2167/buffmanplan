@@ -15,13 +15,25 @@
 	if (mysqli_connect_errno()) {
 	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	} else {
-		$result = mysqli_query($conn, "SHOW TABLES");
+		$email=$_POST["email"];
+		$password=$_POST["password"];
 
-		while($row = mysqli_fetch_array($result)) {
-			echo $row[0];  
-			echo "<br>"; 
+		$sql="select * from user where user.password='".$password."' and user.email='aaa".$email."'";
+
+		$result = mysqli_query($conn,$sql);
+		if(mysqli_num_rows($result) > 0)
+		{ 
+	
+			$row=mysqli_fetch_array($result);
+			$user=$row[0];
+
+			echo $user;
 		}
-
-		mysqli_close($conn);
+		else{
+			echo "dead ";
+		}
+		
 	}
+	
+	
 ?>
