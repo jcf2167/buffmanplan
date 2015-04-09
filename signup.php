@@ -15,7 +15,7 @@
 
 
                 <!--////////BODY////////-->
-               <form class="signup-form" action="signup-form.php" method="post">
+               <form class="form-signin" action="signup-form.php" method="post">
 					</br></br></br></br>
 					<label for="inputEmail" >Email address</label>
 					<input type="text" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -31,11 +31,19 @@
 		                    	</select>
 		            </div>
 
+		            <label for="Goal"> Goal </label>
+		            <select class="form-control">
+		            	<option value="Lose">Lose Weight</option>
+		         		<option value="Gain">Gain Weight</option>
+		         		<option value="Physique">Lose Weight</option>
+		            	<option value="Building">Body Building</option>
+		            </select>
+
 		            <label for="height" >Height (cm)</label>
-					<input type="text" name="height"class="form-control" placeholder="Height" required autofocus>
+					<input type="number" name="height"class="form-control" placeholder="Height" required autofocus>
 
 		            <label for="weight" >Weight (lb)</label>
-					<input type="text" name="weight"class="form-control" placeholder="Weight" required autofocus>
+					<input type="number" name="weight"class="form-control" placeholder="Weight" required autofocus>
 
 					<label for="activitylevel">Activity Level (1-10)</label>
 			        <?php
@@ -45,7 +53,7 @@
 					?>
 
 					<label for="bodyfat	"> Body Fat (%)</label>
-					<input type="text" name="weight"class="form-control" placeholder="Body Fat" required autofocus>
+					<input type="number" name="weight"class="form-control" placeholder="Body Fat" required autofocus>
 
 					<label for="exercisefreq" >Exercise Frequency (1-10)</label>
 					<?php
