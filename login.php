@@ -15,7 +15,7 @@
 
 
                 <!--////////BODY////////-->
-               <form class="login-form" action="login-form.php" method="post">
+               <form class="form-signin" action="login-form.php" method="post">
             
             <label for="inputEmail" class="sr-only">Email address</label>
             <input type="text" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
