@@ -75,42 +75,54 @@ else {
 
 <body background="img/background.png" >
 	<script>
-		var pieData = [
-				{
-					value: 300,
-					color:"#F7464A",
-					highlight: "#FF5A5E",
-					label: "Red"
-				},
-				{
-					value: 50,
-					color: "#46BFBD",
-					highlight: "#5AD3D1",
-					label: "Green"
-				},
-				{
-					value: 100,
-					color: "#FDB45C",
-					highlight: "#FFC870",
-					label: "Yellow"
-				},
-				{
-					value: 40,
-					color: "#949FB1",
-					highlight: "#A8B3C5",
-					label: "Grey"
-				},
-				{
-					value: 120,
-					color: "#4D5360",
-					highlight: "#616774",
-					label: "Dark Grey"
-				}
-			];
-			window.onload = function(){
-				var ctx = document.getElementById("chart-area").getContext("2d");
-				window.myPie = new Chart(ctx).Pie(pieData);
-			};
+	ALSJDNKASJDNAKJSN
+		$(function () {
+    $('#container').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Browser market shares at a specific website, 2014'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+                ['Firefox',   45.0],
+                ['IE',       26.8],
+                {
+                    name: 'Chrome',
+                    y: 12.8,
+                    sliced: true,
+                    selected: true
+                },
+                ['Safari',    8.5],
+                ['Opera',     6.2],
+                ['Others',   0.7]
+            ]
+        }]
+    });
+});
+
+
 	</script>
 
     <div class="site-wrapper">
@@ -178,8 +190,8 @@ else {
 			);
 			for($i = 0; $i<7; $i++){
 				echo "<h1> ".$day[$i]."</h1>";
-				
-				$total_calories = 0;
+
+				$totalCalories = 0;
 				echo "<h4>B R E A K F A S T</h4>";
 				if($constraints!=0)
 					$sql = "select * from Food where ".$constraints."=0 and Meal=0 ORDER BY RAND()";
@@ -197,6 +209,9 @@ else {
 				        <th>Carbs</th>
 				        <th>Protein</th>
 				        <th>Fats</th>
+				        <th>Calories</th>
+				        <th>Total Calories</th>
+
 				      </tr>
 				    </thead>
 				    <tbody>';
@@ -214,6 +229,8 @@ else {
 				        <td>". $row["carbs"]."</td>
 				        <td>". $row["protein"]."</td>
 				        <td>". $row["fats"]."</td>
+				         <td>". $row["calories"]."</td>
+				           <td>". $totalCalories."</td>
 				      </tr>
 				    ";
 				    
@@ -221,9 +238,7 @@ else {
 					{
 							echo "</tbody>
 				  			</table>";
-				  			echo $totalCalories;
-				  			echo $calories;
-							$jdn = $calories*.3;
+				  			
 							break;
 					}
 
@@ -240,10 +255,13 @@ else {
 				echo '<table class="table table-hover">
 				    <thead>
 				      <tr>
-				        <th>Food</th>
+				           <th>Food</th>
 				        <th>Carbs</th>
 				        <th>Protein</th>
 				        <th>Fats</th>
+				        <th>Calories</th>
+				        <th>Total Calories</th>
+
 				      </tr>
 				    </thead>
 				    <tbody>';
@@ -258,6 +276,8 @@ else {
 				        <td>". $row["carbs"]."</td>
 				        <td>". $row["protein"]."</td>
 				        <td>". $row["fats"]."</td>
+				         <td>". $row["calories"]."</td>
+				           <td>". $totalCalories."</td>
 				      </tr>
 				    ";
 				    
@@ -265,8 +285,6 @@ else {
 					{
 							echo "</tbody>
 				  			</table>";
-				  			echo $totalCalories;
-				  			echo $calories;
 							break;
 					}
 
@@ -283,10 +301,13 @@ else {
 				echo '<table class="table table-hover">
 				    <thead>
 				      <tr>
-				        <th>Food</th>
+				           <th>Food</th>
 				        <th>Carbs</th>
 				        <th>Protein</th>
 				        <th>Fats</th>
+				        <th>Calories</th>
+				        <th>Total Calories</th>
+
 				      </tr>
 				    </thead>
 				    <tbody>';
@@ -301,11 +322,13 @@ else {
 					
 							echo "
 						      <tr>
-						        <td>" . $row["food_name"]."</td>
-						        <td>". $row["carbs"]."</td>
-						        <td>". $row["protein"]."</td>
-						        <td>". $row["fats"]."</td>
-						      </tr>
+				        <td>" . $row["food_name"]."</td>
+				        <td>". $row["carbs"]."</td>
+				        <td>". $row["protein"]."</td>
+				        <td>". $row["fats"]."</td>
+				         <td>". $row["calories"]."</td>
+				           <td>". $totalCalories."</td>
+				      </tr>
 						    ";
 						    
 		 					if(($totalCalories > $calories ))
