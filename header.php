@@ -5,6 +5,9 @@
     <title>Buffmanplan</title>
     <meta name="description" content="buffmanplan">
     <link rel="stylesheet" type="text/css" href="static/bootstrap.css">
+	<script src="canvasjs.min.js" type="text/javascript"> </script>
       <!-- Custom styles for this template -->
     <link href="static/cover.css" rel="stylesheet">
+	<script src="static/Chart.js"></script>
+
 </head>

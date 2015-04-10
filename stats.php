@@ -3,8 +3,8 @@ session_start();
 
 $goal=$_SESSION['goal'];
 $weight=$_SESSION['weight'];
-$activitylevel = $_SESSION['activitylevel'];
-$bodyfat = $_POST['bodyfat'];
+$activitylevel = $_SESSION['activity_level'];
+$bodyfat = $_SESSION['body_fat'];
 $calories = 0;
 $carbs = 0;
 $protein = 0;
@@ -27,7 +27,7 @@ $constraintsmap = array(
 $constraints = $constraintsmap[$constraints];
 
 function getCalories($n){
-	return $_SESSION['weight'] * ($_SESSION['activitylevel'] + 10) + $n;
+	return $_SESSION['weight'] * ($_SESSION['activity_level'] + 10) + $n;
 }
 function getCPF($calories,$n,$g){
 	return ($n * $calories)/$g;
@@ -67,6 +67,94 @@ else {
 	$fat = getCPF($calories, .20,8);
 }
 
+?>
+
+<html>
+
+<?php include "header.php" ?>
+
+<body background="img/background.png" >
+	<script>
+		var pieData = [
+				{
+					value: 300,
+					color:"#F7464A",
+					highlight: "#FF5A5E",
+					label: "Red"
+				},
+				{
+					value: 50,
+					color: "#46BFBD",
+					highlight: "#5AD3D1",
+					label: "Green"
+				},
+				{
+					value: 100,
+					color: "#FDB45C",
+					highlight: "#FFC870",
+					label: "Yellow"
+				},
+				{
+					value: 40,
+					color: "#949FB1",
+					highlight: "#A8B3C5",
+					label: "Grey"
+				},
+				{
+					value: 120,
+					color: "#4D5360",
+					highlight: "#616774",
+					label: "Dark Grey"
+				}
+			];
+			window.onload = function(){
+				var ctx = document.getElementById("chart-area").getContext("2d");
+				window.myPie = new Chart(ctx).Pie(pieData);
+			};
+	</script>
+
+    <div class="site-wrapper">
+        <div class="site-wrapper-inner">
+            <div class="cover-container">
+
+         		<!--////////INCLUDE NAVIGATION///////-->
+                <?php include "navbar.php" ?>
+
+                <!--////////BODY////////-->
+                <div class="inner cover" style="background-color:rgba(67, 66, 66, .6)">
+                	<br><br><br><br><br><br><br>
+                    <h1 class="cover-heading">Welcome 
+                    <?php
+					echo $_SESSION['email'];
+								?>!</h1>
+			
+
+					 <table class="table table-condensed">
+				    <thead>
+				      <tr>
+
+				        <th>Calories</th>
+				        <th>Fats</th>
+				        <th>Protein</th>
+				        <th>Carbs</th>
+				      </tr>
+				    </thead>
+
+				    <tbody>
+				      <tr>
+
+				        <td><?php echo $calories ?></td>
+				        <td><?php echo $fat ?> </td>
+				        <td><?php echo $protein ?> </td>
+
+				        <td><?php echo $carbs ?></td>
+				      </tr>
+				   
+				    </tbody>
+				  </table>
+					<?php
+
+
 	$dburl = "cs4111temp.c1xwtu16srrr.us-east-1.rds.amazonaws.com";
 	$dbuser = "jcf2167";
 	$dbpassword = "mycatisdead";
@@ -78,76 +166,170 @@ else {
 
 			#echo "success";
 			#breakfast
+			$day= array(
+				0 => "Monday" , 
+				1 =>"Tuesday",
+				2 =>"Wednesday",
+				3 =>"Thursday",
+				4 =>"Friday",
+				5 =>"Saturday",
+				6 =>"Sunday"
+
+			);
 			for($i = 0; $i<7; $i++){
-				$sql = "select * from Food where ".$constraints."=0 and Meal=0";
+				echo "<h1> ".$day[$i]."</h1>";
+				
+				$total_calories = 0;
+				echo "<h4>B R E A K F A S T</h4>";
+				if($constraints!=0)
+					$sql = "select * from Food where ".$constraints."=0 and Meal=0 ORDER BY RAND()";
+				else
+					$sql = "select * from Food where Meal=0 ORDER BY RAND()";
+
+				#echo $sql;
+
+				$result = mysqli_query($conn,$sql);
+				$food = array();
+				echo '<table class="table table-hover">
+				    <thead>
+				      <tr>
+				        <th>Food</th>
+				        <th>Carbs</th>
+				        <th>Protein</th>
+				        <th>Fats</th>
+				      </tr>
+				    </thead>
+				    <tbody>';
+
+				$row = $result->fetch_assoc();
+				
+				while($row = $result->fetch_assoc()) {
+					$food[$row["food_name"]] = $row["calories"];
+			
+					$totalCalories = $totalCalories +  $row["calories"];
+			
+					echo "
+				      <tr>
+				        <td>" . $row["food_name"]."</td>
+				        <td>". $row["carbs"]."</td>
+				        <td>". $row["protein"]."</td>
+				        <td>". $row["fats"]."</td>
+				      </tr>
+				    ";
+				    
+ 					if(($totalCalories > $calories*.3 ))
+					{
+							echo "</tbody>
+				  			</table>";
+				  			echo $totalCalories;
+				  			echo $calories;
+							$jdn = $calories*.3;
+							break;
+					}
+
+
+			}
+			echo "<h4>L U N C H</h4>";
+			if($constraints!=0)
+					$sql = "select * from Food where ".$constraints."=0 and Meal=1 ORDER BY RAND()";
+				else
+					$sql = "select * from Food where Meal=0 ORDER BY RAND()";
 				#echo $sql;
 				$result = mysqli_query($conn,$sql);
-				$breakfast = array();
-				$total_calories = 0;
+		
+				echo '<table class="table table-hover">
+				    <thead>
+				      <tr>
+				        <th>Food</th>
+				        <th>Carbs</th>
+				        <th>Protein</th>
+				        <th>Fats</th>
+				      </tr>
+				    </thead>
+				    <tbody>';
 				while($row = $result->fetch_assoc()) {
-					$breakfast[$row["food_name"]] = $row["calories"];
-					#echo $breakfast[$row["food_name"]];
-					echo "<h2>".$row["food_name"]."</h2>";
+					$food[$row["food_name"]] = $row["calories"];
+			
+					$totalCalories = $totalCalories +  $row["calories"];
+			
+					echo "
+				      <tr>
+				        <td>" . $row["food_name"]."</td>
+				        <td>". $row["carbs"]."</td>
+				        <td>". $row["protein"]."</td>
+				        <td>". $row["fats"]."</td>
+				      </tr>
+				    ";
+				    
+ 					if(($totalCalories > $calories*.8 ))
+					{
+							echo "</tbody>
+				  			</table>";
+				  			echo $totalCalories;
+				  			echo $calories;
+							break;
+					}
 
-			    }
+
+			}
+			echo "<h4>D I N N E R</h4>";
+			if($constraints!=0)
+					$sql = "select * from Food where ".$constraints."=0 and Meal=1 ORDER BY RAND()";
+				else
+					$sql = "select * from Food where Meal=0 ORDER BY RAND()";
+				#echo $sql;
+				$result = mysqli_query($conn,$sql);
+				$lunch = array();
+				echo '<table class="table table-hover">
+				    <thead>
+				      <tr>
+				        <th>Food</th>
+				        <th>Carbs</th>
+				        <th>Protein</th>
+				        <th>Fats</th>
+				      </tr>
+				    </thead>
+				    <tbody>';
+				while($row = $result->fetch_assoc()) {
+					#echo $row["food_name"];
+					#var_dump ($food);
+					
+					
+							$food[$row["food_name"]] = $row["calories"];
+					
+							$totalCalories = $totalCalories +  $row["calories"];
+					
+							echo "
+						      <tr>
+						        <td>" . $row["food_name"]."</td>
+						        <td>". $row["carbs"]."</td>
+						        <td>". $row["protein"]."</td>
+						        <td>". $row["fats"]."</td>
+						      </tr>
+						    ";
+						    
+		 					if(($totalCalories > $calories ))
+							{
+									echo "</tbody>
+						  			</table>";
+						  			#echo $totalCalories;
+						  			#echo $calories;
+									break;
+							}
+
+					
+					
+
+			}
+
+
+
 		}
 
 	}
+	?>
 
-?>
-
-<html>
-
-<?php include "header.php" ?>
-
-<body background="img/background.png" background-attachment="fixed">
-
-    <div class="site-wrapper">
-        <div class="site-wrapper-inner">
-            <div class="cover-container">
-
-         		<!--////////INCLUDE NAVIGATION///////-->
-                <?php include "navbar.php" ?>
-
-                <!--////////BODY////////-->
-                <div class="inner cover" style="background-color:rgba(67, 66, 66, .6)">
-
-                    <h1 class="cover-heading">Welcome 
-                    <?php
-					echo $_SESSION['constraints'];
-					?>!</h1>
-					<h4>Total Calories Needed: <?php echo $calories ?> </h4>
-					<h4>Total Carbs Needed: <?php echo $carbs ?> </h4> 
-					<h4>Total Fats Needed: <?php echo $fat ?> </h4> 
-					<h4>Total Protein Needed: <?php echo $protein ?> </h4> 
-
-
-                    <table class="table table-hover">
-				    <thead>
-				      <tr>
-				        <th>Firstname</th>
-				        <th>Lastname</th>
-				        <th>Email</th>
-				      </tr>
-				    </thead>
-				    <tbody>
-				      <tr>
-				        <td>John</td>
-				        <td>Doe</td>
-				        <td>john@example.com</td>
-				      </tr>
-				      <tr>
-				        <td>Mary</td>
-				        <td>Moe</td>
-				        <td>mary@example.com</td>
-				      </tr>
-				      <tr>
-				        <td>July</td>
-				        <td>Dooley</td>
-				        <td>july@example.com</td>
-				      </tr>
-				    </tbody>
-				  </table>
+                   
                 </div>
             </div>
         </div>

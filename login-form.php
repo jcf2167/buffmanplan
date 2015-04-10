@@ -48,6 +48,6 @@
 		}
 		
 	}
-	
+	mysqli_close($conn);
 	
 ?>
