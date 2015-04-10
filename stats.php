@@ -78,19 +78,19 @@ else {
 
 			#echo "success";
 			#breakfast
-			$sql = "select * from Food where ".$constraints."=0 and Meal=0";
-			#echo $sql;
-			$result = mysqli_query($conn,$sql);
-			$breakfast = array();
-			$total_calories = 0;
-			while($row = $result->fetch_assoc()) {
-				$breakfast[$row["food_name"]] = $row["calories"];
-				#echo $breakfast[$row["food_name"]];
-				echo "<h2>".$row["food_name"]."</h2>";
-				
+			for($i = 0; $i<7; $i++){
+				$sql = "select * from Food where ".$constraints."=0 and Meal=0";
+				#echo $sql;
+				$result = mysqli_query($conn,$sql);
+				$breakfast = array();
+				$total_calories = 0;
+				while($row = $result->fetch_assoc()) {
+					$breakfast[$row["food_name"]] = $row["calories"];
+					#echo $breakfast[$row["food_name"]];
+					echo "<h2>".$row["food_name"]."</h2>";
 
-		    }
-
+			    }
+		}
 
 	}
 
