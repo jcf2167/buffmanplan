@@ -12,6 +12,7 @@ $fat = 0;
 $constraints = $_SESSION["constraints"];
 
 
+
 $constraintsmap = array(
 		0 => "None" , 
 		1 =>"Vegetarian",
@@ -76,16 +77,22 @@ else {
 		} else {
 
 			#echo "success";
-			$sql = "select * from Food where ".$constraints."=0";
-			echo $sql;
+			#breakfast
+			$sql = "select * from Food where ".$constraints."=0 and Meal=0";
+			#echo $sql;
 			$result = mysqli_query($conn,$sql);
-
+			$breakfast = array();
+			$total_calories = 0;
 			while($row = $result->fetch_assoc()) {
-		        echo "hi";
+				$breakfast[$row["food_name"]] = $row["calories"];
+				#echo $breakfast[$row["food_name"]];
+				echo "<h2>".$row["food_name"]."</h2>";
+				
+
 		    }
 
 
-			}
+	}
 
 ?>
 
@@ -93,7 +100,7 @@ else {
 
 <?php include "header.php" ?>
 
-<body background="img/background.png">
+<body background="img/background.png" background-attachment="fixed">
 
     <div class="site-wrapper">
         <div class="site-wrapper-inner">
@@ -112,10 +119,8 @@ else {
 					<h4>Total Calories Needed: <?php echo $calories ?> </h4>
 					<h4>Total Carbs Needed: <?php echo $carbs ?> </h4> 
 					<h4>Total Fats Needed: <?php echo $fat ?> </h4> 
-
 					<h4>Total Protein Needed: <?php echo $protein ?> </h4> 
 
- 
 
                     <table class="table table-hover">
 				    <thead>
