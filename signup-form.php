@@ -5,7 +5,14 @@ ob_start();
 	ini_set('display_errors', 'On');
 
 	//create connection
-	
+	$goalmap = array(
+		"Maintain" => 0, 
+		"Lose"=> 1,
+		"Gain"=>2,
+		"Physique"=>3,
+		"Building"=>4
+		);
+
 	$dburl = "cs4111temp.c1xwtu16srrr.us-east-1.rds.amazonaws.com";
 	$dbuser = "jcf2167";
 	$dbpassword = "mycatisdead";
@@ -20,6 +27,8 @@ ob_start();
 		$email=$_POST["email"];
 		$password=$_POST["password"];
 		$goal = $_POST["goal"];
+		$goal = $goalmap[$goal];
+
 		$gender = $_POST["gender"];
 		$restrictions = $_POST["restrictions"];
 		$height = $_POST["height"];
@@ -29,9 +38,7 @@ ob_start();
 		echo "_____";
 		$bodyfat = $_POST["bodyfat"];
 		$exercisefreq = $_POST["exercisefreq"];
-
-		$sql=sprintf("INSERT INTO `cs4111temp`.`user` (`email`, `password`, `activity_level`, `height`, `gender`, `weight`, `exercise_frequency`, `body_fat`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', '%d', '%d');", $email, $password, $activitylevel, $height, $gender, $weight, $exercisefreq, $bodyfat);
-
+		$sql = sprintf("INSERT INTO `cs4111temp`.`user` (`email`, `password`, `activity_level`, `height`, `gender`, `weight`, `exercise_frequency`, `body_fat`, `goal`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', '%d', '%d', '$d');", $email, $password, $activitylevel, $height, $gender, $weight, $exercisefreq, $bodyfat, $goal);
 
 		if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";
@@ -43,8 +50,8 @@ ob_start();
             $_SESSION['weight']=$weight;
             $_SESSION['exercise_frequency']=$exercisefreq;
             $_SESSION['body_fat']=$bodyfat;
+            $_SESSION['goal'] =$goal;
             header("Location:stats.php");
-
 		    
 		} else {
 		    echo "Error: " . $sql . "<br>" . $conn->error;
