@@ -1,5 +1,8 @@
-<?php
-	ini_set('display_errors', 'On');=
+<?php if (!isset($_SESSION)) {
+  session_start();
+}
+ob_start();
+	ini_set('display_errors', 'On');
 
 	//create connection
 	
@@ -17,37 +20,34 @@
 		$email=$_POST["email"];
 		$password=$_POST["password"];
 		$goal = $_POST["goal"];
+		$gender = $_POST["gender"];
+		$restrictions = $_POST["restrictions"];
 		$height = $_POST["height"];
 		$weight = $_POST["weight"];
+		$activitylevel = $_POST["activitylevel"];
+		echo $activitylevel;
+		echo "_____";
 		$bodyfat = $_POST["bodyfat"];
-		$
+		$exercisefreq = $_POST["exercisefreq"];
+
+		$sql=sprintf("INSERT INTO `cs4111temp`.`user` (`email`, `password`, `activity_level`, `height`, `gender`, `weight`, `exercise_frequency`, `body_fat`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', '%d', '%d');", $email, $password, $activitylevel, $height, $gender, $weight, $exercisefreq, $bodyfat);
 
 
-		$sql="select * from user where user.password='".$password."' and user.email='".$email."'";
+		if ($conn->query($sql) === TRUE) {
+			echo "New record created successfully";
+            $_SESSION['email']=$email;
+            $_SESSION['password']=$password;
+            $_SESSION['activity_level']=$activitylevel;
+            $_SESSION['height']=$height;
+            $_SESSION['gender']=$gender;
+            $_SESSION['weight']=$weight;
+            $_SESSION['exercise_frequency']=$exercisefreq;
+            $_SESSION['body_fat']=$bodyfat;
+            header("Location:stats.php");
 
-		$result = mysqli_query($conn,$sql);
-		if(mysqli_num_rows($result) > 0)
-		{ 
-
-			
-			$row=mysqli_fetch_array($result);
-			session_start();
-			$_SESSION['email']=$email;
-			$_SESSION['password']=$password;
-			$_SESSION['activity_level']=$row['activity_level'];	
-			$_SESSION['height']=$row['height'];
-			$_SESSION['gender']=$row['gender'];
-			$_SESSION['weight']=$row['weight'];
-			$_SESSION['exercise_frequency']=$row['exercise_frequency'];
-			$_SESSION['body_fat']=$row['body_fat'];
-
-			header("Location:stats.php");
-
-
-	
-		}
-		else{
-			 include "bad-login.php";
+		    
+		} else {
+		    echo "Error: " . $sql . "<br>" . $conn->error;
 		}
 		
 	}
