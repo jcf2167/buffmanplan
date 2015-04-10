@@ -35,6 +35,7 @@
 			$_SESSION['weight']=$row['weight'];
 			$_SESSION['exercise_frequency']=$row['exercise_frequency'];
 			$_SESSION['body_fat']=$row['body_fat'];
+			$_SESSION['goal']=$row['goal'];
 
 			header("Location:stats.php");
 

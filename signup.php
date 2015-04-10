@@ -17,26 +17,38 @@
                 <!--////////BODY////////-->
                <form class="form-signin" action="signup-form.php" method="post">
 					</br></br></br></br>
-					<label for="inputEmail" >Email address</label>
+					<label for="email" >Email address</label>
 					<input type="text" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
 					
 					<label  for="inputPassword">Password</label>
 					<input type="text" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-					
-					<div float="left"> 
-		                    	<label for="gender">Gender</label>
-		                    	<select class="form-control">
-		                    		<option value="f">F</option>
-		                    		<option value-"m">M</option>
-		                    	</select>
-		            </div>
+				
+		            <label for="gender">Gender</label>
+		            <select class="form-control" name="gender">
+		                <option value="f">F</option>
+		                <option value="m">M</option>
+		            </select>
+		      
 
 		            <label for="Goal"> Goal </label>
-		            <select class="form-control">
+		            <select class="form-control" name="goal">
+		            	<option value="Maintain">Maintain</option>
 		            	<option value="Lose">Lose Weight</option>
 		         		<option value="Gain">Gain Weight</option>
-		         		<option value="Physique">Lose Weight</option>
+		         		<option value="Physique">Physique</option>
 		            	<option value="Building">Body Building</option>
+		            </select>
+
+		            <label for="restrictions"> Dietary Restrictions </label>
+		            <select class="form-control" name="restrictions">
+		            	<option value="None">None</option>
+		         		<option value="Vegetarian">Vegetarian</option>
+		         		<option value="NoNuts">No Nuts</option>
+		            	<option value="Lactose">Lactose</option>
+		            	<option value="NoFish">No Fish</option>
+						<option value="NoPork">No Pork</option>
+						<option value="NoBeef">No Beef</option>
+
 		            </select>
 
 		            <label for="height" >Height (cm)</label>
@@ -47,17 +59,19 @@
 
 					<label for="activitylevel">Activity Level (1-10)</label>
 			        <?php
-					echo "<select class='form-control'>";
-					for ($h = 1; $h <= 10; $h++) echo "<option value='$h'>$h</option>";
+					echo "<select class='form-control' name='activitylevel'>";
+					for ($h = 1; $h <= 10; $h++) {
+						echo "<option value='$h'>$h</option>";
+					}
 					echo "</select>";
 					?>
 
 					<label for="bodyfat	"> Body Fat (%)</label>
-					<input type="number" name="weight"class="form-control" placeholder="Body Fat" required autofocus>
+					<input type="number" name="bodyfat"class="form-control" placeholder="Body Fat" required autofocus>
 
 					<label for="exercisefreq" >Exercise Frequency (1-10)</label>
 					<?php
-					echo "<select class='form-control'>";
+					echo "<select class='form-control' name='exercisefreq'>";
 					for ($h = 1; $h <= 10; $h++) echo "<option value='$h'>$h</option>";
 					echo "</select>";
 					?>
