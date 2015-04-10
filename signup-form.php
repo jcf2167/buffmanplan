@@ -12,6 +12,17 @@ ob_start();
 		"Physique"=>3,
 		"Building"=>4
 		);
+	$constraintsmap = array(
+		"None" => 0, 
+		"Vegetarian"=> 1,
+		"NoNuts"=>2,
+		"Lactose"=>3,
+		"NoFish"=>4,
+		"NoPork"=>5,
+		"NoBeef"=>6
+
+		);
+	echo $goalmap["Gain"];
 
 	$dburl = "cs4111temp.c1xwtu16srrr.us-east-1.rds.amazonaws.com";
 	$dbuser = "jcf2167";
@@ -28,9 +39,14 @@ ob_start();
 		$password=$_POST["password"];
 		$goal = $_POST["goal"];
 		$goal = $goalmap[$goal];
-
+		
 		$gender = $_POST["gender"];
 		$restrictions = $_POST["restrictions"];
+		echo $restrictions;
+		$constraints = $constraintsmap[$restrictions];
+		echo "contraints: ";
+		echo $constraints;
+		echo "test:";
 		$height = $_POST["height"];
 		$weight = $_POST["weight"];
 		$activitylevel = $_POST["activitylevel"];
@@ -38,7 +54,7 @@ ob_start();
 		echo "_____";
 		$bodyfat = $_POST["bodyfat"];
 		$exercisefreq = $_POST["exercisefreq"];
-		$sql = sprintf("INSERT INTO `cs4111temp`.`user` (`email`, `password`, `activity_level`, `height`, `gender`, `weight`, `exercise_frequency`, `body_fat`, `goal`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', '%d', '%d', '$d');", $email, $password, $activitylevel, $height, $gender, $weight, $exercisefreq, $bodyfat, $goal);
+		$sql = sprintf("INSERT INTO `cs4111temp`.`user` (`email`, `password`, `activity_level`, `height`, `gender`, `weight`, `exercise_frequency`, `body_fat`, `goal`, `constraints`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', '%d', '%d', '$d', '$d');", $email, $password, $activitylevel, $height, $gender, $weight, $exercisefreq, $bodyfat, $goal, $constraints);
 
 		if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";
@@ -51,6 +67,7 @@ ob_start();
             $_SESSION['exercise_frequency']=$exercisefreq;
             $_SESSION['body_fat']=$bodyfat;
             $_SESSION['goal'] =$goal;
+            $_SESSION['constraints'] =$constraints;
             header("Location:stats.php");
 		    
 		} else {
